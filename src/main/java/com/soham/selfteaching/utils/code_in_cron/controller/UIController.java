@@ -26,14 +26,13 @@ public class UIController {
     public ModelAndView index() {
         ModelAndView modelAndView = new ModelAndView("index");
         modelAndView.addObject("job", new ScheduledJob());
+        modelAndView.addObject("jobs", scheduledJobService.getAllJobs());
         return modelAndView;
     }
 
     @PostMapping
-    public ModelAndView save(@ModelAttribute ScheduledJob job) {
+    public String save(@ModelAttribute ScheduledJob job) {
         scheduledJobService.saveJob(job);
-        ModelAndView modelAndView = new ModelAndView("index");
-        modelAndView.addObject("job", new ScheduledJob());
-        return modelAndView;
+        return "redirect:/ui";
     }
 }
