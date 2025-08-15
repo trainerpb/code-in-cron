@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Scheduled Job UI</title>
+</head>
+<body>
+    <h1>Create  a Job</h1>
+    <form th:action="@{/ui}" th:object="${job}" method="post">
+        <label for="name">Job Name:</label>
+        <input type="text" id="name" th:field="*{name}" required />
+        <br/>
+        <label for="cronExpression">Cron Expression:</label>
+        <input type="text" id="cronExpression" th:field="*{cronExpression}" required />
+        <br/>
+        <label for="description">Description:</label>
+        <input type="text" id="description" th:field="*{description}" />
+        <br/>
+
+        <label for="code">Code:</label>
+        <textarea id="code" th:field="*{code}" required></textarea>
+        <br/>
+
+        <button type="submit">Schedule</button>
+    </form>
+</body>
+</html>
+
