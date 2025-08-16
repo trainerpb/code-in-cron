@@ -12,9 +12,10 @@ import java.lang.reflect.InvocationTargetException;
 @Service
 @Slf4j
 @RequiredArgsConstructor
-public class ScheduledJobService {
+public class ScheduledJobCrudService {
 
     private final ScheduledJobRepository scheduledJobRepository;
+    private final DynamicTaskScheduler dynamicTaskScheduler;
 
 
     public void saveJob(ScheduledJob job) {
@@ -41,7 +42,8 @@ public class ScheduledJobService {
     public Object triggerJob(Long id) throws InvocationTargetException, IllegalAccessException, InstantiationException, NoSuchMethodException {
         ScheduledJob job = getJob(id);
         log.info("Triggering job: {}", job);
-        SourceToHiddenClassUtils.executeCode(job.getCode(), "Job_"+id, getClass().getPackageName(),"executeJob");
+        var runnable=SourceToHiddenClassUtils.executeCodeInRunnable(job.getCode(), "Job_"+id, getClass().getPackageName(),"executeJob", getClass());
+        dynamicTaskScheduler.schedule(job.getName()+"_"+job.getId(), runnable, job.getCronExpression());
         return "Job triggered successfully";
     }
 }

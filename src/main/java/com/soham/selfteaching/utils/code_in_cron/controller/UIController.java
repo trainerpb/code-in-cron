@@ -1,10 +1,9 @@
 package com.soham.selfteaching.utils.code_in_cron.controller;
 
 import com.soham.selfteaching.utils.code_in_cron.model.ScheduledJob;
-import com.soham.selfteaching.utils.code_in_cron.service.ScheduledJobService;
+import com.soham.selfteaching.utils.code_in_cron.service.ScheduledJobCrudService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -16,7 +15,7 @@ import org.springframework.web.servlet.ModelAndView;
 @RequiredArgsConstructor
 public class UIController {
 
-    private final ScheduledJobService scheduledJobService;
+    private final ScheduledJobCrudService scheduledJobService;
     /**
      * Handles the root request for the UI and returns the index view.
      *
